@@ -1,60 +1,60 @@
-let items = [];
+const form = document.getElementById('form');
+const usersList = document.getElementById('users-list');
+const error = document.getElementById('error');
 
-const itemNameInput = document.getElementById('itemName');
-const itemForm = document.getElementById('itemForm');
-const itemsTable = document.getElementById('itemsTable').getElementsByTagName('tbody')[0];
+form.addEventListener('submit', e => {
+	e.preventDefault();
 
-itemForm.addEventListener('submit', event => {
-	event.preventDefault();
-	const itemName = itemNameInput.value.trim();
+	const newUser = {
+		id: Date.now(),
+		name: form.name.value,
+		email: form.email.value,
+		age: form.age.value,
+	};
 
-	if (itemName) {
-		const newItem = {
-			id: Date.now(),
-			name: itemName,
-		};
-		items.push(newItem);
-		renderItems();
-		itemNameInput.value = '';
+	const res = fetch('http://localhost:3000/users', {
+		method: 'POST',
+		body: JSON.stringify(newUser),
+	});
+
+	if (res.ok) {
+		alert("Foydalanuvchi qo'shildi!");
+		form.reset();
+	} else {
+		alert("Foydalanuvchi qo'shildi!");
 	}
 });
 
-function renderItems() {
-	itemsTable.innerHTML = '';
+async function getUsers() {
+	const res = await fetch('http://localhost:3000/users');
+	const data = await res.json;
 
-	items.forEach(item => {
-		const row = itemsTable.insertRow();
-		const nameCell = row.insertCell(0);
-		const actionsCell = row.insertCell(1);
+	if (res.status !== 200 || res.ok !== true) {
+		throw new Error('Malumot olishda xatolik!');
+	}
 
-		nameCell.textContent = item.name;
-
-		const updateButton = document.createElement('button');
-		updateButton.textContent = 'Update';
-		updateButton.onclick = () => updateItem(item.id);
-
-		const deleteButton = document.createElement('button');
-		deleteButton.textContent = 'Delete';
-		deleteButton.onclick = () => deleteItem(item.id);
-
-		actionsCell.appendChild(updateButton);
-		actionsCell.appendChild(deleteButton);
-	});
+	return data;
 }
 
-function updateItem(id) {
-	const newName = prompt('Enter new item name:');
+getUsers()
+	.then(data => {
+		renderUsers(data);
+	})
 
-	if (newName) {
-		const item = items.find(i => i.id === id);
-		item.name = newName;
-		renderItems();
+	.catch(err => {
+		error.innerHTML = err.message;
+	});
+
+function renderUsers(users) {
+	if (users.length) {
+		users.map(user => {
+			const div = document.createElement('div');
+
+			div.innerHTML = `<h2>Ismi: ${user.name}</h2>
+                <p>Email: ${user.email}</p>
+                <h2>Yoshi: ${user.age}</h2>`;
+
+			usersList.appendChild(div);
+		});
 	}
 }
-
-function deleteItem(id) {
-	items = items.filter(item => item.id !== id);
-	renderItems();
-}
-
-renderItems();

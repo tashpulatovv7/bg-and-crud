@@ -9,21 +9,15 @@
 	<body>
 		<h1>CRUD Example</h1>
 
-		<form id="itemForm">
-			<input type="text" id="itemName" placeholder="Enter item name" required />
-			<button type="submit">Add Item</button>
+		<form id="form">
+			<input type="text" id="name" placeholder="Name" />
+			<input type="email" id="email" placeholder="Email" />
+			<input type="number" id="age" placeholder="Age" />
+			<button type="submit">Submit</button>
 		</form>
-
-		<h2>Item List</h2>
-		<table id="itemsTable">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody></tbody>
-		</table>
+		<p id="loader" style="display: none">Loading...</p>
+		<p id="error" style="color: red"></p>
+		<div id="users-list"></div>
 
 		<script src="script.js"></script>
 	</body>

@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Bilol",
+      "email": "bilol@gmail.com",
+      "age": 18
+    },
+    {
+      "id": 1738515511353,
+      "name": "rcx",
+      "email": "tashpulatov005@gmail.com",
+      "age": "22"
+    },
+    {
+      "id": 1738515643936,
+      "name": "ce",
+      "email": "tashpulatovvbilol@gmail.com",
+      "age": "111"
+    },
+    {
+      "id": 1738515926739,
+      "name": "cdxsz",
+      "email": "tashpulatov005@gmail.com",
+      "age": "33"
+    },
+    {
+      "id": 1738515961937,
+      "name": "desw",
+      "email": "efindo.@dsw.sw",
+      "age": "44"
+    },
+    {
+      "id": 1738515988353,
+      "name": "gfdsdf",
+      "email": "efindo.@dsw.sddd",
+      "age": "4"
+    }
+  ]
+}
